@@ -70,9 +70,18 @@ bool oled_task_kb(void) {
 }
 #endif
 
-const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
-    [_MAIN] = {ENCODER_CCW_CW(KC_VOLU, KC_VOLD)},
-    [_RIGHT]  = {ENCODER_CCW_CW(KC_VOLU, KC_VOLD)},
-    [_LEFT]  = {ENCODER_CCW_CW(KC_VOLU, KC_VOLD)},
-    [_TAB] = {ENCODER_CCW_CW(KC_VOLU, KC_VOLD)},
-};
+#ifdef ENCODER_ENABLE
+bool encoder_update_kb(uint8_t index, bool clockwise) {
+    if (!encoder_update_user(index, clockwise)) {
+        return false;
+    }
+	// Volume control
+	if (clockwise) {
+		tap_code(KC_VOLU);
+	} else {
+		tap_code(KC_VOLD);
+	}
+
+	return false;
+}
+#endif
