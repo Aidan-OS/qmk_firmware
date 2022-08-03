@@ -10,7 +10,7 @@
         "console": false,
         "extrakey": true,
         "mousekey": true,
-        "encoder": true,
+		"encoder":true,
         "oled": true,
         "nkro": true
     },
@@ -18,6 +18,15 @@
         "cols": [ "B3", "E6", "B1", "D7", "F7", "C6" ],
         "rows": [ "F5", "F6", "B2", "B5", "F4", "D4", "B4", "B6" ]
     },
+	"encoder": {
+		"rotary": [
+			{
+				"pin_a": "D5",
+				"pin_b": "B7",
+				"resolution": 2
+			}
+		]
+	},
     "processor": "atmega32u4",
     "url": "https://aidansmith.dev",
     "usb": {
