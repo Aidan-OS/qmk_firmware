@@ -31,8 +31,8 @@ static painter_device_t display;
 static painter_image_handle_t image;
 //static deferred_token animation;
 
-void keyboard_post_init_kb(void)
-{
+uint32_t deferred_init(uint32_t trigger_time, void *cb_arg)
+{   
     display = qp_st7789_make_spi_device(240, 280, LCD_CS_PIN, LCD_DC_PIN, LCD_RST_PIN, LCD_SPI_DIVISOR, 0);
     qp_init(display, QP_ROTATION_180);
     
@@ -42,6 +42,14 @@ void keyboard_post_init_kb(void)
         qp_drawimage(display, (239 - image->width), (279 - image->height), image);
     }
     
+    keyboard_post_init_user();
+    
+    return(0);
+}
+
+void keyboard_post_init_kb(void)
+{
+    defer_exec(3000, deferred_init, NULL);
 }
 
 void keyboard_post_init_user(void)

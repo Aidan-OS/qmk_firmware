@@ -12,3 +12,5 @@
 #define LCD_CS_PIN GP21
 
 #define LCD_SPI_DIVISOR 8
+
+#define QUANTUM_PAINTER_DEBUG 
