@@ -39,20 +39,15 @@ uint32_t deferred_init(uint32_t trigger_time, void *cb_arg)
     image = qp_load_image_mem(gfx_Ene);
     if (image != NULL)
     {
-        qp_drawimage(display, (239 - image->width), (279 - image->height), image);
+        // qp_drawimage(display, (239 - image->width), (279 - image->height), image);
+        qp_drawimage(display, 0, 0, image);
     }
-    
-    keyboard_post_init_user();
     
     return(0);
 }
 
 void keyboard_post_init_kb(void)
 {
-    defer_exec(3000, deferred_init, NULL);
-}
-
-void keyboard_post_init_user(void)
-{
     debug_enable = true;
+    defer_exec(3000, deferred_init, NULL);
 }
