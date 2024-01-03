@@ -2,7 +2,9 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #include "quantum.h"
 #include <qp.h>
-#include "Ene.qgf.h"
+//#include "Iris_AnimLoading_001_VP9.qgf.h"
+#include "Iris_AnimLoading_003.qgf.h"
+//#include "Ene.qgf.h"
 
 enum keyboard_layers {
 	_MAIN,
@@ -29,18 +31,21 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
 
 static painter_device_t display;
 static painter_image_handle_t image;
-//static deferred_token animation;
+static deferred_token animation;
 
 uint32_t deferred_init(uint32_t trigger_time, void *cb_arg)
 {   
-    display = qp_st7789_make_spi_device(240, 280, LCD_CS_PIN, LCD_DC_PIN, LCD_RST_PIN, LCD_SPI_DIVISOR, 0);
+    display = qp_st7789_make_spi_device(240, 280, LCD_CS_PIN, LCD_DC_PIN, LCD_RST_PIN, LCD_SPI_DIVISOR, 3);
     qp_init(display, QP_ROTATION_180);
     
-    image = qp_load_image_mem(gfx_Ene);
+	image = qp_load_image_mem(gfx_Iris_AnimLoading_003);
+    //image = qp_load_image_mem(gfx_Iris_AnimLoading_001_VP9);
+	//image = qp_load_image_mem(gfx_Ene);
     if (image != NULL)
     {
         // qp_drawimage(display, (239 - image->width), (279 - image->height), image);
-        qp_drawimage(display, 0, 0, image);
+        // qp_drawimage(display, 0, 20, image);
+		animation = qp_animate(display, 0, 20, image);
     }
     
     return(0);
